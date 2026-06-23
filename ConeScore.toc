@@ -3,7 +3,7 @@
 ## Title: ConeScore
 ## Notes: A raid hall of shame that tracks mistakes, syncs scores, and crowns the Cone of the Night.
 ## Author: Hakoda
-## Version: 0.1.0
+## Version: @project-version@
 ## SavedVariables: ConeScoreDB
 
 Core.lua

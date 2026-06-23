@@ -1,0 +1,7 @@
+package-as: ConeScore
+
+ignore:
+  - .agents
+  - .github
+  - LICENSE
+  - README.md
