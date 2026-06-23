@@ -1,0 +1,56 @@
+name: Package Release
+
+on:
+  release:
+    types:
+      - published
+
+permissions:
+  contents: write
+
+jobs:
+  package:
+    runs-on: windows-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Build ConeScore zip
+        shell: pwsh
+        run: |
+          $packageRoot = Join-Path $env:RUNNER_TEMP "ConeScore"
+          $zipPath = Join-Path $env:RUNNER_TEMP "ConeScore.zip"
+
+          if (Test-Path $packageRoot) {
+            Remove-Item -Path $packageRoot -Recurse -Force
+          }
+
+          if (Test-Path $zipPath) {
+            Remove-Item -Path $zipPath -Force
+          }
+
+          New-Item -ItemType Directory -Path $packageRoot | Out-Null
+
+          $pathsToInclude = @(
+            "ConeScore.toc",
+            "Core.lua",
+            "Deaths.lua",
+            "Roster.lua",
+            "Sync.lua",
+            "TryTracker.lua",
+            "UI.lua",
+            "Media"
+          )
+
+          foreach ($path in $pathsToInclude) {
+            Copy-Item -Path $path -Destination $packageRoot -Recurse -Force
+          }
+
+          Compress-Archive -Path $packageRoot -DestinationPath $zipPath -Force
+
+      - name: Upload zip to release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: ${{ runner.temp }}/ConeScore.zip
+          overwrite_files: true
