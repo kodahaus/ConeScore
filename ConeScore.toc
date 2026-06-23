@@ -1,0 +1,14 @@
+## Interface: 120007
+## X-Compatible-With: 120000, 120005, 120007
+## Title: ConeScore
+## Notes: A raid hall of shame that tracks mistakes, syncs scores, and crowns the Cone of the Night.
+## Author: Hakoda
+## Version: 0.1.0
+## SavedVariables: ConeScoreDB
+
+Core.lua
+Roster.lua
+TryTracker.lua
+Deaths.lua
+Sync.lua
+UI.lua
